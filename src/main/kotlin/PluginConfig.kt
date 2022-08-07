@@ -18,6 +18,10 @@ object PluginConfig : ReadOnlyPluginConfig("config") {
     @ValueDescription("在本插件黑名单内的群聊")
     val blacklistGroups by value(listOf<Long>())
 
+    @ValueName("whitelist-users")
+    @ValueDescription("在本插件白名单内的用户")
+    val whitelistUsers by value(listOf<Long>())
+
     @ValueName("keywords-random-wife")
     @ValueDescription("「抽老婆」的关键词列表")
     val keywordsRandomWife by value(listOf("抽老婆"))

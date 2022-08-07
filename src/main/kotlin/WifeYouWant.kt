@@ -28,6 +28,7 @@ object WifeYouWant : KotlinPlugin(
 ) {
     private val nowTime: String
         get() = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
+
     override fun onEnable() {
         logger.info { "Plugin loaded" }
         PluginConfig.reload()
@@ -44,7 +45,8 @@ object WifeYouWant : KotlinPlugin(
                 val time = nowTime
                 val user = UserData.users.getOrDefault(sender.id, SingleUser())
                 if (user.time != time) user.wifeId = random(sender).id
-                val wife: User = group[user.wifeId] ?: bot.getMember(user.wifeId) ?: bot.getStranger(user.wifeId) ?: random(sender)
+                val wife: User =
+                    group[user.wifeId] ?: bot.getMember(user.wifeId) ?: bot.getStranger(user.wifeId) ?: random(sender)
                 user.wifeId = wife.id
                 user.time = time
                 UserData.users[sender.id] = user
@@ -64,14 +66,14 @@ object WifeYouWant : KotlinPlugin(
         }
     }
 
-    private fun Bot.getMember(id: Long) : NormalMember?{
+    private fun Bot.getMember(id: Long): NormalMember? {
         return groups.asSequence().flatMap { it.members.asSequence() }.firstOrNull { it.id == id }
     }
 
     private fun genUserReplacement(
         identity: String,
         sender: User,
-        connect: String = "_"
+        connect: String = "_",
     ): MutableMap<String, SingleMessage> {
         val prefix = identity + connect
         return mutableMapOf(
@@ -80,10 +82,11 @@ object WifeYouWant : KotlinPlugin(
             "${prefix}pic" to sender.prepareUploadAvatarImage()
         )
     }
+
     private suspend fun genRandomWifeMessage(
         s: String,
         sender: NormalMember,
-        wife: User
+        wife: User,
     ): MessageChain {
         val map = genUserReplacement("", sender, "")
         map.putAll(genUserReplacement("wife", wife))
@@ -94,7 +97,7 @@ object WifeYouWant : KotlinPlugin(
         s: String,
         sender: NormalMember,
         oldWife: User,
-        wife: User
+        wife: User,
     ): MessageChain {
         val map = genUserReplacement("", sender, "")
         map.putAll(genUserReplacement("wife", wife))
@@ -110,6 +113,15 @@ object WifeYouWant : KotlinPlugin(
     private suspend fun random(sender: NormalMember, excludeId: Long? = null): NormalMember {
         val group = sender.group
         var members: List<NormalMember> = group.members.filter { it.id != group.bot.id && it.id != excludeId }
+
+        if (PluginConfig.whitelistUsers.isNotEmpty()) {
+            val member = members.toMutableList()
+            // member List 删除所有 whitelistUsers
+            PluginConfig.whitelistUsers.forEach { id ->
+                member.removeAll { it.id == id }
+            }
+            members = member
+        }
 
         if (PluginConfig.checkGender) {
             var gender = sender.queryProfile().sex

@@ -4,7 +4,7 @@
 
 本插件移植自 椛椛 ᴮᴼᵀ ([名 场 面](https://mirai.mamoe.net/assets/uploads/files/1657708242332-wifeyouwant.png))
 
-[![](https://shields.io/github/downloads/MrXiaoM/WifeYouWant/total)](https://github.com/MrXiaoM/WifeYouWant/releases) [![](https://img.shields.io/badge/mirai--console-2.11-blue)](https://github.com/mamoe/mirai) [![](https://img.shields.io/badge/MiraiForum-post-yellow)](https://mirai.mamoe.net/topic/1376)
+[![](https://shields.io/github/downloads/xihan123/WifeYouWant/total)](https://github.com/MrXiaoM/WifeYouWant/releases) [![](https://img.shields.io/badge/mirai--console-2.12.1-blue)](https://github.com/mamoe/mirai) [![](https://img.shields.io/badge/MiraiForum-post-yellow)](https://mirai.mamoe.net/topic/1376)
 
 ## 特性
 
@@ -13,10 +13,11 @@
 * 可设置只能抽和自己性别相反的人，也可以无视性别
 * 可以设置能抽到自己
 * 可以设置能 NTR (重复抽到群友)
+* 可以设置不参与抽取的QQ号
 
 ## 安装
 
-到 [Releases](https://github.com/MrXiaoM/WifeYouWant/releases) 下载插件并放入 plugins 文件夹进行安装
+到 [Releases](https://github.com/xihan123/WifeYouWant/releases) 下载插件并放入 plugins 文件夹进行安装
 
 > 2.11 或以上下载 WifeYouWant-*.mirai2.jar
 >
